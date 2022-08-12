@@ -15,8 +15,11 @@ s.text('🥑🍞 Avocado Toast')
 
 
 s.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
-s.dataframe(my_fruit_list)
+## Let's put a pick list here so they can pick the fruit they want to include 
+fruits_selected = s.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
 
-# Let's put a pick list here so they can pick the fruit they want to include 
-s.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
+## Show only the df for the selected fruits
+fruits_to_show = my_fruit_list.loc[fruits_selected]
+s.dataframe(fruits_to_show)
+
 
