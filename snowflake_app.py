@@ -18,5 +18,5 @@ s.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 s.dataframe(my_fruit_list)
 
 # Let's put a pick list here so they can pick the fruit they want to include 
-s.multiselect("Pick some fruits:", list(my_fruit_list.index))
+s.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
 
