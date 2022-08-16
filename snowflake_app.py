@@ -3,9 +3,6 @@ import streamlit as s
 import pandas as pd
 import requests
 
-# Import API from fruity vice
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-
 # Import CSV and chage index
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
@@ -30,6 +27,16 @@ s.dataframe(fruits_to_show)
 # Section with Fruity Vice
 s.header("Fruityvice Fruit Advice!")
 
-s.text(fruityvice_response.json())
+# Make a text input to ask for the required information
+fruit_choice = s.text_input('What fruit would you like information about?','Kiwi')
+s.write('The user entered ', fruit_choice)
 
+# Import API with fruit-choice from fruity vice
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+
+# Use API response and transform to dataframe
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+
+# make dataframe appear on Streamlit
+s.dataframe(fruityvice_normalized)
 
