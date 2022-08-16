@@ -1,6 +1,10 @@
 
 import streamlit as s
 import pandas as pd
+import requests
+
+# Import API from fruity vice
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
 # Import CSV and chage index
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -21,5 +25,11 @@ fruits_selected = s.multiselect("Pick some fruits:", list(my_fruit_list.index), 
 ## Show only the df for the selected fruits
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 s.dataframe(fruits_to_show)
+
+
+# Section with Fruity Vice
+s.header("Fruityvice Fruit Advice!")
+
+s.text(fruityvice_response.json())
 
 
