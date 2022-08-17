@@ -78,7 +78,7 @@ if s.button("Get fruit Load List"):
  
 # button to add a fruit to the list of fruits
 if s.button("Add fruit to the list"):
-   add_my_fruit = s.text_input("Pick a fruit to add in the list)
+   add_my_fruit = s.text_input("Pick a fruit to add in the list")
    my_cnx = sfc.connect(**s.secrets["snowflake"])
    backed_from_function = insert_row_snowflake(add_my_fruit)
    s.text(backed_from_function)
