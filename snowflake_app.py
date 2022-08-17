@@ -44,7 +44,7 @@ try:
     # make dataframe appear on Streamlit
     s.dataframe(fruityvice_normalized)
     
-except URLError as e
+except URLError as e:
   s.error()
 
   
