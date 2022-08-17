@@ -3,20 +3,7 @@ import streamlit as s
 import pandas as pd
 import requests
 import snowflake.connector as sfc
-
-# Connection for streamlit and snowflake
-my_cnx = sfc.connect(**s.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-s.header("The fruit load list contains:")
-s.dataframe(my_data_rows)
-
-picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
-my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
-s.write("Thanks for adding ", picked_fruit)
-
-
+from urllib.error import URLError
 
 # Import CSV and chage index
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -54,4 +41,21 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 # make dataframe appear on Streamlit
 s.dataframe(fruityvice_normalized)
+
+# Section code to stop running the previous part every time we run the connection
+s.stop()
+
+
+# Connection for streamlit and snowflake
+my_cnx = sfc.connect(**s.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT * from fruit_load_list")
+my_data_rows = my_cur.fetchall()
+s.header("The fruit load list contains:")
+s.dataframe(my_data_rows)
+
+# Picking fruit to add to the table in db snowflake
+picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
+my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
+s.write("Thanks for adding ", picked_fruit)
 
