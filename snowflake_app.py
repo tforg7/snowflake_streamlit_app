@@ -67,7 +67,7 @@ def get_fruit_load_list():
    
 def insert_row_snowflake(my_fruit):
    with my_cnx.cursor() as my_cur:
-      my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
+      my_cur.execute(" insert into fruit_load_list values ('"+ my_fruit  +"') ");
       return "Thanks for adding "+ my_fruit
 
 # button to show the current table containing all the fruits
