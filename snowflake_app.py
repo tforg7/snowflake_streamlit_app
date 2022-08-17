@@ -29,19 +29,26 @@ s.dataframe(fruits_to_show)
 # Section with Fruity Vice
 s.header("Fruityvice Fruit Advice!")
 
-# Make a text input to ask for the required information
-fruit_choice = s.text_input('What fruit would you like information about?','Kiwi')
-s.write('The user entered ', fruit_choice)
+# This structure allows to separate the code that is loaded once from the code that should be repeated each time a new value is entered.
+try:
+  # Make a text input to ask for the required information
+  fruit_choice = s.text_input('What fruit would you like information about?')
+  
+  if not fruit_choice:
+      s.error('Please select a fruit to get information.')  
+  else:
+    # Import API with fruit-choice from fruity vice
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+    # Use API response and transform to dataframe
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # make dataframe appear on Streamlit
+    s.dataframe(fruityvice_normalized)
+    
+except URLError as e
+  s.error()
 
-# Import API with fruit-choice from fruity vice
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-
-# Use API response and transform to dataframe
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-
-# make dataframe appear on Streamlit
-s.dataframe(fruityvice_normalized)
-
+  
+  
 # Section code to stop running the previous part every time we run the connection
 s.stop()
 
