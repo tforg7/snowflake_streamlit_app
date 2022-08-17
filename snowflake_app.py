@@ -7,7 +7,7 @@ import snowflake.connector as sfc
 # Connection for streamlit and snowflake
 my_cnx = sfc.connect(**s.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * fom fruit_load_list")
+my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 s.header("The fruit load list contains:")
 s.dataframe(my_data_rows)
