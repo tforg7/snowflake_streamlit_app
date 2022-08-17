@@ -54,21 +54,33 @@ except URLError as e:
   s.error()
 
   
-  
 # Section code to stop running the previous part every time we run the connection
 s.stop()
 
 
 # Connection for streamlit and snowflake
-my_cnx = sfc.connect(**s.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-s.header("The fruit load list contains:")
-s.dataframe(my_data_rows)
 
-# Picking fruit to add to the table in db snowflake
-picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
-my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
-s.write("Thanks for adding ", picked_fruit)
+def get_fruit_load_list():
+   with my_cnx.cursor() as my_cur:
+      my_cur.execute("SELECT * from fruit_load_list")
+      return my_cur.fetchall()
+   
+def insert_row_snowflake(my_fruit):
+   with my_cnx.cursor() as my_cur:
+      my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
+      return "Thanks for adding "+ my_fruit
+
+# button to show the current table containing all the fruits
+if s.button("Get fruit Load List"):
+   my_cnx = sfc.connect(**s.secrets["snowflake"])
+   my_data_rows = get_fruit_load_list()
+   s.dataframe(my_data_rows)
+ 
+# button to add a fruit to the list of fruits
+if s.button("Add fruit to the list"):
+   add_my_fruit = s.text_input("Pick a fruit to add in the list)
+   my_cnx = sfc.connect(**s.secrets["snowflake"])
+   backed_from_function = insert_row_snowflake(add_my_fruit)
+   s.text(backed_from_function)
+  
 
