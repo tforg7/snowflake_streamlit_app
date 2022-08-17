@@ -13,7 +13,7 @@ s.header("The fruit load list contains:")
 s.dataframe(my_data_rows)
 
 picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
-my_cur.execute(" insert into fruit_load_list values ("from streamlit") ");
+my_cur.execute(" insert into fruit_load_list values ('from streamlit') ");
 s.write("Thanks for adding ", picked_fruit)
 
 
