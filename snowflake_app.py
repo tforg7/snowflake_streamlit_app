@@ -12,6 +12,10 @@ my_data_rows = my_cur.fetchall()
 s.header("The fruit load list contains:")
 s.dataframe(my_data_rows)
 
+picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
+my_cur.execute(" insert into pc_rivery_db.public.fruit_load_list
+                    values (picked_fruit));
+
 
 
 # Import CSV and chage index
