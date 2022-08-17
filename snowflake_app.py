@@ -14,7 +14,7 @@ s.dataframe(my_data_rows)
 
 picked_fruit = s.text_input("Pick a fruit to add in the list", "passionfruit")
 my_cur.execute(" insert into pc_rivery_db.public.fruit_load_list values (picked_fruit)");
-s.text("Thanks for adding "picked_fruit)
+s.write("Thanks for adding ", picked_fruit)
 
 
 
