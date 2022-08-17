@@ -27,7 +27,7 @@ s.dataframe(fruits_to_show)
 
 
 # Create a function to call API link to "Fruity vice"
-def get_fruityvice_data(this_fruit_choice)
+def get_fruityvice_data(this_fruit_choice):
    # Import API with fruit-choice from fruity vice
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
     # Use API response and transform to dataframe
