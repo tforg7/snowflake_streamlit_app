@@ -55,7 +55,7 @@ except URLError as e:
 
   
 # Section code to stop running the previous part every time we run the connection
-s.stop()
+# s.stop()
 
 
 # Connection for streamlit and snowflake
