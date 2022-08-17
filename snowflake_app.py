@@ -26,6 +26,14 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 s.dataframe(fruits_to_show)
 
 
+# Create a function to call API link to "Fruity vice"
+def get_fruityvice_data(this_fruit_choice)
+   # Import API with fruit-choice from fruity vice
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ this_fruit_choice)
+    # Use API response and transform to dataframe
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+
 # Section with Fruity Vice
 s.header("Fruityvice Fruit Advice!")
 
@@ -37,12 +45,10 @@ try:
   if not fruit_choice:
       s.error('Please select a fruit to get information.')  
   else:
-    # Import API with fruit-choice from fruity vice
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-    # Use API response and transform to dataframe
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # Call function get_fruityvice_data
+    backedfromfunction = get_fruityvice_data(fruit_choice)
     # make dataframe appear on Streamlit
-    s.dataframe(fruityvice_normalized)
+    s.dataframe(backedfromfunction)
     
 except URLError as e:
   s.error()
