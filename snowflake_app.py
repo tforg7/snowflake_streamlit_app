@@ -58,7 +58,7 @@ except URLError as e:
 # s.stop()
 
 
-s.header(" Biew our fruit list - Add your favorites")
+s.header(" View our fruit list - Add your favorites")
 # Connection for streamlit and snowflake
 def get_fruit_load_list():
    with my_cnx.cursor() as my_cur:
